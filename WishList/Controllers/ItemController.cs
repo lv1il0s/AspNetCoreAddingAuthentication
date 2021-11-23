@@ -37,6 +37,7 @@ namespace WishList.Controllers
         [HttpPost]
         public IActionResult Create(Models.Item item)
         {
+            item.User = _userManager.GetUserAsync(HttpContext.User).Result;
             _context.Items.Add(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
