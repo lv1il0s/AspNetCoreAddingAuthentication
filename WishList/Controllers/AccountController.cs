@@ -71,6 +71,18 @@ namespace WishList.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Login", loginViewModel);
+            }
+
+            var result = _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, false, false).Result;
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+
             return RedirectToAction("Index", "Item");
         }
 
