@@ -53,11 +53,9 @@ namespace WishList.Controllers
                 {
                     ModelState.AddModelError("Password", error.Description);
                 }
+                return View("Register", registerViewModel);
             }
-
-            return View("Register", registerViewModel);
-
-            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
